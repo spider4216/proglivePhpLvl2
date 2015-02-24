@@ -8,7 +8,7 @@ class DB
         mysql_select_db($config['db']['db_name']);
     }
 
-    public function query($sql , $class = 'stdClass')
+    public function queryAll($sql , $class = 'stdClass')
     {
         $res = mysql_query($sql);
 
@@ -22,5 +22,10 @@ class DB
         }
 
         return $array;
+    }
+
+    public function queryOne($sql, $class = 'stdClass')
+    {
+        return $this->queryAll($sql, $class)[0];
     }
 }
