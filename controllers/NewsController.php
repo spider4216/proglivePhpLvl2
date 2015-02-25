@@ -1,10 +1,10 @@
 <?php
 
 class NewsController {
-    public function actionAll()
+    public function actionIndex()
     {
         $items = News::findAll();
-        include __DIR__ . '/../views/news/all.php';
+        include __DIR__ . '/../views/news/index.php';
     }
 
     public function actionOne()

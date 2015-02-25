@@ -7,7 +7,7 @@ abstract class AbstractModel {
     public static function findAll()
     {
         $db = new DB();
-        $sql = 'SELECT * FROM ' . static::$table;
+        $sql = 'SELECT * FROM ' . static::$table . ' ORDER BY date DESC';
         return $db->queryAll($sql, static::$class);
     }
 

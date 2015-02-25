@@ -28,4 +28,9 @@ class DB
     {
         return $this->queryAll($sql, $class)[0];
     }
+
+    public function queryCrud($sql)
+    {
+        return mysql_query($sql);
+    }
 }
