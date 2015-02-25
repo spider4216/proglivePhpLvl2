@@ -4,14 +4,19 @@ class NewsController {
     public function actionIndex()
     {
         $items = News::findAll();
-        include __DIR__ . '/../views/news/index.php';
+        $view = new View();
+        $view->data('news', $items);
+        $view->display('news/index');
     }
 
     public function actionOne()
     {
         $id = $_GET['id'];
         $item = News::findOne($id);
-        include __DIR__ . '/../views/news/one.php';
+
+        $view = new View();
+        $view->data('item', $item);
+        $view->display('news/one');
     }
 }
 

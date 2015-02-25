@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="news">
-        <?php foreach($items as $item): ?>
+        <?php foreach($news as $item): ?>
             <div class="news-row">
                 <div class="item-title">
                     <a href="/index.php?ctrl=News&act=one&id=<?php echo $item->id; ?>">

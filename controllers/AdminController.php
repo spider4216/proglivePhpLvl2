@@ -16,7 +16,8 @@ class AdminController
                 }
             }
         }
-        include __DIR__ . '/../views/admin/addnews.php';
+        $view = new View();
+        $view->display('admin/addnews');
     }
 }
 
