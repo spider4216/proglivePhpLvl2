@@ -10,7 +10,7 @@
         <div class="admin-menu">
             <ul>
                 <li>
-                    <a href="/index.php?ctrl=admin&act=addNews">Добавить новость</a>
+                    <a href="/admin/addnews">Добавить новость</a>
                 </li>
             </ul>
         </div>

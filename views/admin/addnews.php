@@ -7,7 +7,7 @@
 <body>
     <div class="add-news-panel">
         <h2>Добавление новости</h2>
-        <form action="/index.php?ctrl=admin&act=addNews" method="post">
+        <form action="/admin/addnews" method="post">
             <div class="title-field">
                 <label for="title">Заголовок</label>
                 <input type="text" name="title" id="title"/>
