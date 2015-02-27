@@ -4,7 +4,8 @@ class AdminController
 {
     public function actionIndex()
     {
-        include __DIR__ . '/../views/admin/index.php';
+        $view = new View();
+        $view->display('admin/index.php');
     }
 
     public function actionAddNews()
@@ -17,7 +18,7 @@ class AdminController
             }
         }
         $view = new View();
-        $view->display('admin/addnews');
+        $view->display('admin/addnews.php');
     }
 }
 
