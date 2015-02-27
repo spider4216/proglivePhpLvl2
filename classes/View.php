@@ -2,19 +2,28 @@
 
 class View {
 
-    protected $variableName;
-    protected $data;
+    protected $data = [];
 
-    public function data($var, $value)
+    public function data($k, $v)
     {
-        $this->variableName = $var;
-        $this->data = $value;
+        $this->data[$k] = $v;
+    }
+
+    public function __set($k, $v)
+    {
+        $this->data[$k] = $v;
+    }
+
+    public function __get($k)
+    {
+        return $this->data[$k];
     }
 
     public function display($view)
     {
-        $var_name = $this->variableName;
-        $$var_name = $this->data;
+        foreach ($this->data as $key => $value) {
+            $$key = $value;
+        }
         include __DIR__ . '/../views/' . $view . '.php';
     }
 }

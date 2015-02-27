@@ -5,7 +5,7 @@ class NewsController {
     {
         $items = News::findAll();
         $view = new View();
-        $view->data('news', $items);
+        $view->news = $items;
         $view->display('news/index');
     }
 
@@ -15,7 +15,7 @@ class NewsController {
         $item = News::findOne($id);
 
         $view = new View();
-        $view->data('item', $item);
+        $view->item = $item;
         $view->display('news/one');
     }
 }
