@@ -12,7 +12,7 @@ class News extends AbstractModel {
     public static function addNews($title, $description)
     {
         $db = new DB();
-        $sql = 'INSERT INTO ' . self::$table . ' (title, description) VALUES (\'' . $title . '\', \'' . $description . '\')';
+        $sql = "INSERT INTO " . self::$table . " (title, description) VALUES ('" . $title . "','" . $description . "')";
         return $db->queryCrud($sql);
     }
 }
