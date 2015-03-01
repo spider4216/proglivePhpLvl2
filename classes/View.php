@@ -1,6 +1,6 @@
 <?php
 
-class View {
+class View implements Iterator {
 
     protected $data = [];
 
@@ -29,5 +29,31 @@ class View {
     public function display($view)
     {
         echo $this->render($view);
+    }
+
+
+    public function current()
+    {
+        return $this->data[key($this->data)];
+    }
+
+    public function next()
+    {
+        next($this->data);
+    }
+
+    public function key()
+    {
+        return key($this->data);
+    }
+
+    public function valid()
+    {
+        return $this->data[key($this->data)] !== NULL;
+    }
+
+    public function rewind()
+    {
+        reset($this->data);
     }
 }
