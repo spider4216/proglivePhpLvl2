@@ -1,36 +1,31 @@
 <?php
 class DB
 {
+    private $dbh;
+    private $class = 'stdClass';
+
     public function __construct()
     {
         require_once __DIR__ . '/../core/config.php';
-        mysql_connect($config['db']['db_host'], $config['db']['db_username'], $config['db']['db_password']);
-        mysql_select_db($config['db']['db_name']);
+        $dsn = 'mysql:dbname=' . $config['db']['db_name'] . ';host=' . $config['db']['db_host'];
+        $this->dbh = new PDO($dsn, $config['db']['db_username'], $config['db']['db_password']);
     }
 
-    public function queryAll($sql , $class = 'stdClass')
+    public function setClassName($class)
     {
-        $res = mysql_query($sql);
-
-        if(false === $res) {
-            return false;
-        }
-
-        $array = [];
-        while ($row = mysql_fetch_object($res, $class)) {
-            $array[] = $row;
-        }
-
-        return $array;
+        $this->class = $class;
     }
 
-    public function queryOne($sql, $class = 'stdClass')
+    public function query($sql, $params = [])
     {
-        return $this->queryAll($sql, $class)[0];
+        $sth = $this->dbh->prepare($sql);
+        $sth->execute($params);
+        return $sth->fetchAll(PDO::FETCH_CLASS, $this->class);
     }
 
-    public function queryCrud($sql)
+    public function execute($sql, $params = [])
     {
-        return mysql_query($sql);
+        $sth = $this->dbh->prepare($sql);
+        return $sth->execute($params);
     }
 }

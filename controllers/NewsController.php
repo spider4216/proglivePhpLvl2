@@ -3,21 +3,23 @@
 class NewsController {
     public function actionIndex()
     {
-        $items = News::findAll();
+        $news = News::findAll();
         $view = new View();
-        $view->news = $items;
+        $view->news = $news;
         $view->display('news/index.php');
+
     }
 
     public function actionOne()
     {
         $id = $_GET['id'];
-        $item = News::findOne($id);
+        $item = News::findByPk($id);
 
         $view = new View();
         $view->item = $item;
         $view->display('news/one.php');
     }
+
 }
 
 ?>

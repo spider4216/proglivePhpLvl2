@@ -12,7 +12,11 @@ class AdminController
     {
         if (isset($_POST)) {
             if (!empty($_POST['title']) && !empty($_POST['description'])) {
-                if(News::addNews($_POST['title'], $_POST['description'])) {
+                $model = new News();
+                $model->title = $_POST['title'];
+                $model->description = $_POST['description'];
+
+                if($model->save()) {
                     header('Location:/index.php');
                 }
             }
