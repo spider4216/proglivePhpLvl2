@@ -2,6 +2,7 @@
 
 abstract class AbstractModel implements IModel {
     protected static $table;
+    public $id;
     protected $data = [];
 
     public function __set($k, $v)
@@ -47,7 +48,7 @@ abstract class AbstractModel implements IModel {
         return $db->query($sql, [':value' => $value]);
     }
 
-    public function save()
+    public function insert()
     {
         $db = new DB();
         $cols = array_keys($this->data);
@@ -58,10 +59,41 @@ abstract class AbstractModel implements IModel {
         }
 
         $sql = 'INSERT INTO ' . static::$table . ' (' . implode(', ', $cols) . ') VALUES (' . implode(', ', $colsPrepare) . ') ';
-        //var_dump($sql);
-        return $db->execute($sql, $dataExec);
 
+        $result =  $db->execute($sql, $dataExec);
 
+        if (true == $result) {
+            $this->id = $db->lastInsertId();
+        }
+
+        return $result;
+    }
+
+    public function update()
+    {
+        $db = new DB();
+
+        $data = [];
+        $dataExec = [];
+
+        foreach ($this->data as $key=>$value) {
+            $data[] = $key . ' = :' . $key;
+            $dataExec[':' . $key] = $value;
+        }
+
+        $dataExec[':id'] = $this->id;
+
+        $sql = 'UPDATE ' . static::$table . ' SET ' . implode(', ', $data) . ' WHERE id=:id';
+        return  $db->execute($sql, $dataExec);
+    }
+
+    public function delete()
+    {
+        $db = new DB();
+
+        $sql = 'DELETE FROM ' . static::$table . ' WHERE id=:id';
+
+        return  $db->execute($sql, [':id'=>$this->id]);
     }
 
 }
