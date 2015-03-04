@@ -6,7 +6,7 @@ class DB
 
     public function __construct()
     {
-        require_once __DIR__ . '/../core/config.php';
+        require __DIR__ . '/../core/config.php';
         $dsn = 'mysql:dbname=' . $config['db']['db_name'] . ';host=' . $config['db']['db_host'];
         $this->dbh = new PDO($dsn, $config['db']['db_username'], $config['db']['db_password']);
     }
@@ -27,5 +27,10 @@ class DB
     {
         $sth = $this->dbh->prepare($sql);
         return $sth->execute($params);
+    }
+
+    public function lastInsertId()
+    {
+        return $this->dbh->lastInsertId();
     }
 }
