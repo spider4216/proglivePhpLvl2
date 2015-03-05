@@ -16,7 +16,7 @@ class AdminController
                 $model->title = $_POST['title'];
                 $model->description = $_POST['description'];
 
-                if($model->insert()) {
+                if($model->save()) {
                     header('Location:/index.php');
                 }
             }
@@ -49,7 +49,8 @@ class AdminController
                 $item = News::findByPk($_POST['news_id']);
                 $item->title = $_POST['title'];
                 $item->description = $_POST['description'];
-                $item->update();
+
+                $item->save();
 
                 header('Location:/admin/list');
             }

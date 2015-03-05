@@ -48,7 +48,7 @@ abstract class AbstractModel implements IModel {
         return $db->query($sql, [':value' => $value]);
     }
 
-    public function insert()
+    protected function insert()
     {
         $db = new DB();
         $cols = array_keys($this->data);
@@ -69,7 +69,7 @@ abstract class AbstractModel implements IModel {
         return $result;
     }
 
-    public function update()
+    protected function update()
     {
         $db = new DB();
 
@@ -85,6 +85,19 @@ abstract class AbstractModel implements IModel {
 
         $sql = 'UPDATE ' . static::$table . ' SET ' . implode(', ', $data) . ' WHERE id=:id';
         return  $db->execute($sql, $dataExec);
+    }
+
+    public function save()
+    {
+        $db = new DB();
+        if (isset($this->id)) {
+            $sql = 'SELECT * FROM ' . static::$table . ' WHERE id-:id';
+            $res = $db->query($sql, [':id'=>$this->id]);
+            if (!empty($res)) {
+                return $this->update();
+            }
+        }
+        return $this->insert();
     }
 
     public function delete()
