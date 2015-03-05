@@ -16,13 +16,28 @@ class AdminController
                 $model->title = $_POST['title'];
                 $model->description = $_POST['description'];
 
-                if($model->save()) {
+                if($model->insert()) {
                     header('Location:/index.php');
                 }
             }
         }
         $view = new View();
         $view->display('admin/addnews.php');
+    }
+
+    public function actionList()
+    {
+        if (!empty($_GET['delete'])) {
+            $item = News::findByPk($_GET['delete']);
+            $item->delete();
+            header('Location:/admin/list');
+        }
+        $model = new News();
+        $news = $model->findAll();
+
+        $view = new View();
+        $view->news = $news;
+        $view->display('news/list.php');
     }
 }
 
