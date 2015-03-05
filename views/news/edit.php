@@ -15,7 +15,7 @@
 
             <div class="description">
                 <p><label for="description">Описание</label></p>
-                <textarea name="description" id="description" cols="50" rows="10"><?php echo $news->title; ?></textarea>
+                <textarea name="description" id="description" cols="50" rows="10"><?php echo $news->description; ?></textarea>
             </div>
 
             <input type="hidden" value="<?php echo $news->id; ?>" name="news_id" />
