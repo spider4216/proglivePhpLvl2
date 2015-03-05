@@ -39,6 +39,27 @@ class AdminController
         $view->news = $news;
         $view->display('news/list.php');
     }
+
+    public function actionEdit()
+    {
+        $view = new View();
+
+        if (!empty($_POST)) {
+            if (!empty($_POST['title']) && !empty($_POST['description'])) {
+                $item = News::findByPk($_POST['news_id']);
+                $item->title = $_POST['title'];
+                $item->description = $_POST['description'];
+                $item->update();
+
+                header('Location:/admin/list');
+            }
+        }
+
+        $item = News::findByPk($_GET['id']);
+        $view->news = $item;
+        $view->display('news/edit.php');
+
+    }
 }
 
 ?>

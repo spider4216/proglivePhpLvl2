@@ -27,7 +27,7 @@
                         <p><?php echo $item->date; ?></p>
                     </td>
                     <td>
-                        <p><a href="#">Редактировать</a></p>
+                        <p><a href="/admin/edit?id=<?php echo $item->id; ?>">Редактировать</a></p>
                         <p><a href="/admin/list/?delete=<?php echo $item->id; ?>">Удалить</a></p>
                     </td>
                 </tr>
