@@ -2,7 +2,6 @@
 
 abstract class AbstractModel implements IModel {
     protected static $table;
-    public $id;
     protected $data = [];
 
     public function __set($k, $v)
@@ -13,6 +12,11 @@ abstract class AbstractModel implements IModel {
     public function __get($k)
     {
         return $this->data[$k];
+    }
+
+    public function __isset($k)
+    {
+        return isset($this->data[$k]);
     }
 
     public static function findAll()
@@ -45,14 +49,20 @@ abstract class AbstractModel implements IModel {
         $db->setClassName($class);
 
         $sql = 'SELECT * FROM ' . static::$table . ' WHERE ' . $column . ' = :value';
-        return $db->query($sql, [':value' => $value]);
+        $res =  $db->query($sql, [':value' => $value]);
+
+        if (!empty($res)) {
+            return $res[0];
+        }
+
+        return false;
     }
 
     protected function insert()
     {
         $db = new DB();
         $cols = array_keys($this->data);
-        $colsPrepare = array_map(function($col_name) { return $col_name = ':' . $col_name;}, $cols);
+        $colsPrepare = array_map(function($col_name) { return ':' . $col_name;}, $cols);
         $dataExec = [];
         foreach ($this->data as $key => $value) {
             $dataExec[':' . $key] = $value;
@@ -75,13 +85,13 @@ abstract class AbstractModel implements IModel {
 
         $data = [];
         $dataExec = [];
-
         foreach ($this->data as $key=>$value) {
-            $data[] = $key . ' = :' . $key;
             $dataExec[':' . $key] = $value;
+            if ($key == 'id') {
+                continue;
+            }
+            $data[] = $key . ' = :' . $key;
         }
-
-        $dataExec[':id'] = $this->id;
 
         $sql = 'UPDATE ' . static::$table . ' SET ' . implode(', ', $data) . ' WHERE id=:id';
         return  $db->execute($sql, $dataExec);
@@ -91,13 +101,10 @@ abstract class AbstractModel implements IModel {
     {
         $db = new DB();
         if (isset($this->id)) {
-            $sql = 'SELECT * FROM ' . static::$table . ' WHERE id-:id';
-            $res = $db->query($sql, [':id'=>$this->id]);
-            if (!empty($res)) {
-                return $this->update();
-            }
+            return $this->update();
+        } else {
+            return $this->insert();
         }
-        return $this->insert();
     }
 
     public function delete()
