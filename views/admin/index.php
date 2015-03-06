@@ -12,10 +12,6 @@
                 <li>
                     <a href="/admin/addnews">Добавить новость</a>
                 </li>
-
-                <li>
-                    <a href="/admin/list">Список новостей</a>
-                </li>
             </ul>
         </div>
     </div>
