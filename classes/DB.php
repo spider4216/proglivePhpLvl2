@@ -32,6 +32,7 @@ class DB
         } catch (PDOException $e) {
             $view = new View();
             $view->error = 'Ошибка запроса: ' . $e->getMessage();
+            header('HTTP/1.0 403 Forbidden');
             $view->display('errors/403.php');
             die;
         }
@@ -41,8 +42,18 @@ class DB
 
     public function execute($sql, $params = [])
     {
-        $sth = $this->dbh->prepare($sql);
-        return $sth->execute($params);
+        try {
+            $sth = $this->dbh->prepare($sql);
+            $result = $sth->execute($params);
+        } catch (PDOException $e) {
+            $view = new View();
+            $view->error = 'Ошибка выполнения запроса: ' . $e->getMessage();
+            header('HTTP/1.0 403 Forbidden');
+            $view->display('errors/403.php');
+            die;
+        }
+
+        return $result;
     }
 
     public function lastInsertId()
