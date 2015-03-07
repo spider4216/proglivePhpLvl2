@@ -27,14 +27,19 @@ class DB
     public function query($sql, $params = [])
     {
         try {
-            $sth = $this->dbh->prepare($sql);
-            $sth->execute($params);
-        } catch (PDOException $e) {
-            $view = new View();
-            $view->error = 'Ошибка запроса: ' . $e->getMessage();
-            header('HTTP/1.0 403 Forbidden');
-            $view->display('errors/403.php');
-            die;
+            try {
+                $sth = $this->dbh->prepare($sql);
+                $sth->execute($params);
+            } catch (PDOException $e) {
+                $view = new View();
+                $view->error = 'Ошибка запроса: ' . $e->getMessage();
+                header('HTTP/1.0 403 Forbidden');
+                $view->display('errors/403.php');
+                throw new Log($e->getMessage());
+            }
+        } catch (Log $e) {
+            $e->write();
+            die();
         }
 
         return $sth->fetchAll(PDO::FETCH_CLASS, $this->class);
@@ -43,14 +48,19 @@ class DB
     public function execute($sql, $params = [])
     {
         try {
-            $sth = $this->dbh->prepare($sql);
-            $result = $sth->execute($params);
-        } catch (PDOException $e) {
-            $view = new View();
-            $view->error = 'Ошибка выполнения запроса: ' . $e->getMessage();
-            header('HTTP/1.0 403 Forbidden');
-            $view->display('errors/403.php');
-            die;
+            try {
+                $sth = $this->dbh->prepare($sql);
+                $result = $sth->execute($params);
+            } catch (PDOException $e) {
+                $view = new View();
+                $view->error = 'Ошибка выполнения запроса: ' . $e->getMessage();
+                header('HTTP/1.0 403 Forbidden');
+                $view->display('errors/403.php');
+                throw new Log($e->getMessage());
+            }
+        } catch (Log $e) {
+            $e->write();
+            die();
         }
 
         return $result;

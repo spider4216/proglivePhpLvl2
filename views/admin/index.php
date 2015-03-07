@@ -12,6 +12,10 @@
                 <li>
                     <a href="/admin/addnews">Добавить новость</a>
                 </li>
+
+                <li>
+                    <a href="/admin/log">Журнал ошибок</a>
+                </li>
             </ul>
         </div>
     </div>

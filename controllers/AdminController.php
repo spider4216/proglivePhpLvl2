@@ -25,6 +25,19 @@ class AdminController
         $view->display('admin/addnews.php');
     }
 
+    public function actionLog()
+    {
+        $path = __DIR__ . '/../core/error.log';
+        if (!file_exists($path)) {
+            throw new E404Ecxeption('Журнал ошибок не найден');
+        }
+
+        $log = file_get_contents($path);
+        $view = new View();
+        $view->log = $log;
+        $view->display('admin/log.php');
+    }
+
 }
 
 ?>
