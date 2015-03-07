@@ -9,7 +9,14 @@ require_once __DIR__ . '/controllers/' . $controllerClassName . '.php';
 $controller = new $controllerClassName;
 
 $method = 'action' . $act;
-$controller->$method();
+try {
+    $controller->$method();
+} catch (E404Ecxeption $e) {
+    $view = new View();
+    $view->error = $e->getMessage();
+    header("HTTP/1.0 404 Not Found");
+    $view->display('errors/404.php');
+}
 
 
 ?>

@@ -14,6 +14,9 @@ class NewsController {
     {
         $id = $_GET['id'];
         $item = News::findByPk($id);
+        if (empty($item)) {
+            throw $e = new E404Ecxeption('Страница не найдена');
+        }
 
         $view = new View();
         $view->item = $item;
