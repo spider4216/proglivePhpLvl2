@@ -7,15 +7,20 @@ class DB
     public function __construct()
     {
         try {
-            require __DIR__ . '/../core/config.php';
-            $dsn = 'mysql:dbname=' . $config['db']['db_name'] . ';host=' . $config['db']['db_host'];
-            $this->dbh = new PDO($dsn, $config['db']['db_username'], $config['db']['db_password']);
-            $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            $view = new View();
-            $view->error = 'Не удалось подключиться к базе данных: ' . $e->getMessage();
-            $view->display('errors/403.php');
-            die;
+            try {
+                require __DIR__ . '/../core/config.php';
+                $dsn = 'mysql:dbname=' . $config['db']['db_name'] . ';host=' . $config['db']['db_host'];
+                $this->dbh = new PDO($dsn, $config['db']['db_username'], $config['db']['db_password']);
+                $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                $view = new View();
+                $view->error = 'Не удалось подключиться к базе данных: ' . $e->getMessage();
+                $view->display('errors/403.php');
+                throw new Log($e->getMessage());
+            }
+        } catch (Log $e) {
+            $e->write();
+            die();
         }
     }
 
