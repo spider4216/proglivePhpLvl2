@@ -10,12 +10,22 @@ $controller = new $controllerClassName;
 
 $method = 'action' . $act;
 try {
-    $controller->$method();
-} catch (E404Ecxeption $e) {
-    $view = new View();
-    $view->error = $e->getMessage();
-    header("HTTP/1.0 404 Not Found");
-    $view->display('errors/404.php');
+    try {
+        $controller->$method();
+    } catch (E404Ecxeption $e) {
+        $view = new View();
+        $view->error = $e->getMessage();
+        header("HTTP/1.0 404 Not Found");
+        $view->display('errors/404.php');
+    } catch (PDOException $e) {
+        $view = new View();
+        $view->error = 'Ошибка выполнения запроса: ' . $e->getMessage();
+        header('HTTP/1.0 403 Forbidden');
+        $view->display('errors/403.php');
+        throw new Log($e->getMessage());
+    }
+} catch (Log $e) {
+    $e->write();
 }
 
 
