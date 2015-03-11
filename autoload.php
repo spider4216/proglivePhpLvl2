@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__ . '/vendor/autoload.php';
+
 function __autoload($myClassName)
 {
     $classParts = explode('\\', $myClassName);

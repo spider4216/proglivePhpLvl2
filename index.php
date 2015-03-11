@@ -23,7 +23,7 @@ try {
             throw new E404Exception('Контроллер не найден');
         }
         require_once $controllerPath;
-        
+
         $controllerClassName = 'Application\\Controllers\\' . $controllerClassName;
         $controller = new $controllerClassName;
 
