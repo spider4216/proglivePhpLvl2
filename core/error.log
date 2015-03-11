@@ -13,3 +13,16 @@ SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in you
 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SEECT * FROM news WHERE id='56'' at line 1 C:\OpenServer\domains\proglivePhpLvl2\index.php 25 1425963982 
 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSET INTO news (title, description) VALUES ('foo', 'bar')' at line 1 C:\OpenServer\domains\proglivePhpLvl2\index.php 25 1425964062 
 SQLSTATE[HY000] [1045] Access denied for user 'rot'@'localhost' (using password: NO) C:\OpenServer\domains\proglivePhpLvl2\index.php 25 1425964130 
+Контроллер не найден C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051356 
+Страница не найдена C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051556 
+Страница не найдена C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051559 
+Страница не найдена C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051562 
+Страница не найдена C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051565 
+Страница не найдена C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051567 
+Страница не найдена C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051570 
+Страница не найдена C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051573 
+Контроллер не найден C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051590 
+Контроллер не найден C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051592 
+Контроллер не найден C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051601 
+Контроллер не найден C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051647 
+Контроллер не найден C:\OpenServer\domains\proglivePhpLvl2\index.php 30 1426051695 

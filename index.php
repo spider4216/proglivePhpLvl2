@@ -1,22 +1,34 @@
 <?php
 
 require_once __DIR__ . '/autoload.php';
-$ctrl = isset($_GET['ctrl']) ? $_GET['ctrl'] : 'News';
-$act = isset($_GET['act']) ? $_GET['act'] : 'Index';
+
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$pathParts = explode('/', $path);
+
+$ctrl = (!empty($pathParts[1]) && $pathParts[1] != 'index.php') ? $pathParts[1] : 'News';
+$act = !empty($pathParts[2]) ? $pathParts[2] : 'Index';
 
 $controllerClassName = $ctrl . 'Controller';
-require_once __DIR__ . '/controllers/' . $controllerClassName . '.php';
-$controller = new $controllerClassName;
+$controllerPath = __DIR__ . '/controllers/' . $controllerClassName . '.php';
 
-$method = 'action' . $act;
+//Громозкий получился try catch. Увы не уверен как в данном случае сделать более элегантно,
+//чтобы исключения выбрасывались при остуствии контроллера
 try {
     try {
+        if (!file_exists($controllerPath)) {
+            throw new E404Ecxeption('Контроллер не найден');
+        }
+        require_once $controllerPath;
+        $controller = new $controllerClassName;
+
+        $method = 'action' . $act;
         $controller->$method();
     } catch (E404Ecxeption $e) {
         $view = new View();
         $view->error = $e->getMessage();
         header("HTTP/1.0 404 Not Found");
         $view->display('errors/404.php');
+        throw new Log($e->getMessage());
     } catch (PDOException $e) {
         $view = new View();
         $view->error = 'Ошибка выполнения запроса: ' . $e->getMessage();

@@ -9,7 +9,7 @@
         <?php foreach($news as $item): ?>
             <div class="news-row">
                 <div class="item-title">
-                    <a href="/news/one/<?php echo $item->id; ?>">
+                    <a href="/news/one/?id=<?php echo $item->id; ?>">
                         <?php echo $item->title; ?>
                     </a>
                 </div>
