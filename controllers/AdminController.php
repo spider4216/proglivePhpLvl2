@@ -5,6 +5,7 @@ namespace Application\Controllers;
 use Application\Models\News;
 use Application\Classes\View;
 use Application\Classes\E404Exception;
+use Application\Classes\EmailException;
 
 class AdminController
 {
@@ -23,6 +24,14 @@ class AdminController
                 $model->description = $_POST['description'];
 
                 if($model->save()) {
+                    $mail = new \PHPMailer();
+                    $mail->addAddress('spider4216@gmail.com', 'farZa');
+                    $mail->Subject = 'Добавление новой новости';
+                    $mail->Body    = 'На сайт была добавлено новая новость';
+
+                    if(!$mail->send()) {
+                        throw new EmailException('Произошла ошибка при отправки email сообщения');
+                    }
                     header('Location:/index.php');
                 }
             }

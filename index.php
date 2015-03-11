@@ -3,6 +3,7 @@
 use Application\Classes\View;
 use Application\Classes\E404Exception;
 use Application\Classes\Log;
+use Application\Classes\EmailException;
 
 require_once __DIR__ . '/autoload.php';
 
@@ -31,19 +32,29 @@ try {
         $controller->$method();
 
     } catch (E404Exception $e) {
+
         $view = new View();
         $view->error = $e->getMessage();
 
         header("HTTP/1.0 404 Not Found");
         $view->display('errors/404.php');
+        //логирование 404
         throw new Log($e->getMessage());
+
     } catch (PDOException $e) {
+
         $view = new View();
         $view->error = 'Ошибка выполнения запроса: ' . $e->getMessage();
 
         header('HTTP/1.0 403 Forbidden');
         $view->display('errors/403.php');
+        //логирование 403
         throw new Log($e->getMessage());
+
+    } catch (EmailException $e) {
+        //логирование ошибки отправки email сообщения
+        throw new Log($e->getMessage());
+
     }
 } catch (Log $e) {
     $e->write();

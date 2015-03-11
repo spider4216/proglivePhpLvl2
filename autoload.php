@@ -1,8 +1,6 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
-
-function __autoload($myClassName)
+function autoload($myClassName)
 {
     $classParts = explode('\\', $myClassName);
     $classParts[0] = __DIR__;
@@ -11,5 +9,9 @@ function __autoload($myClassName)
         require $path;
     }
 }
+
+spl_autoload_register('autoload');
+
+require __DIR__ . '/vendor/autoload.php';
 
 ?>
