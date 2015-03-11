@@ -2,7 +2,7 @@
 
 namespace Application\Classes;
 
-use \PDO;
+use PDO;
 
 class DB
 {
