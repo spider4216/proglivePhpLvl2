@@ -33,3 +33,7 @@ SQLSTATE[HY000] [1045] Access denied for user 'rot'@'localhost' (using password:
 Контроллер не найден C:\OpenServer\domains\proglivePhpLvl2\index.php 39 1426076643 
 Контроллер не найден C:\OpenServer\domains\proglivePhpLvl2\index.php 39 1426076648 
 Произошла ошибка при отправки email сообщения C:\OpenServer\domains\proglivePhpLvl2\index.php 54 1426078455 
+Страница не найдена C:\OpenServer\domains\proglivePhpLvl2\index.php 42 1426081726 
+Контроллер не найден C:\OpenServer\domains\proglivePhpLvl2\index.php 42 1426081734 
+Контроллер не найден C:\OpenServer\domains\proglivePhpLvl2\index.php 42 1426081740 
+Контроллер не найден C:\OpenServer\domains\proglivePhpLvl2\index.php 42 1426081743 
