@@ -1,7 +1,10 @@
 <?php
 
+namespace Application\Controllers;
+
 use Application\Models\News;
 use Application\Classes\View;
+use Application\Classes\E404Exception;
 
 class NewsController {
     public function actionIndex()
@@ -18,7 +21,7 @@ class NewsController {
         $id = $_GET['id'];
         $item = News::findByPk($id);
         if (empty($item)) {
-            throw new E404Ecxeption('Страница не найдена');
+            throw new E404Exception('Страница не найдена');
         }
 
         $view = new View();

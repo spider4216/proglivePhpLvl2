@@ -1,5 +1,9 @@
 <?php
 
+use Application\Classes\View;
+use Application\Classes\E404Exception;
+use Application\Classes\Log;
+
 require_once __DIR__ . '/autoload.php';
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -16,22 +20,27 @@ $controllerPath = __DIR__ . '/controllers/' . $controllerClassName . '.php';
 try {
     try {
         if (!file_exists($controllerPath)) {
-            throw new E404Ecxeption('Контроллер не найден');
+            throw new E404Exception('Контроллер не найден');
         }
         require_once $controllerPath;
+        
+        $controllerClassName = 'Application\\Controllers\\' . $controllerClassName;
         $controller = new $controllerClassName;
 
         $method = 'action' . $act;
         $controller->$method();
-    } catch (E404Ecxeption $e) {
+
+    } catch (E404Exception $e) {
         $view = new View();
         $view->error = $e->getMessage();
+
         header("HTTP/1.0 404 Not Found");
         $view->display('errors/404.php');
         throw new Log($e->getMessage());
     } catch (PDOException $e) {
         $view = new View();
         $view->error = 'Ошибка выполнения запроса: ' . $e->getMessage();
+
         header('HTTP/1.0 403 Forbidden');
         $view->display('errors/403.php');
         throw new Log($e->getMessage());

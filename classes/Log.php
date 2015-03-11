@@ -1,5 +1,9 @@
 <?php
 
+namespace Application\Classes;
+
+use ErrorException;
+
 class Log extends ErrorException {
 
     private function getErrorInfo()

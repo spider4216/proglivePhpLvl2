@@ -1,7 +1,10 @@
 <?php
 
+namespace Application\Controllers;
+
 use Application\Models\News;
 use Application\Classes\View;
+use Application\Classes\E404Exception;
 
 class AdminController
 {
@@ -32,7 +35,7 @@ class AdminController
     {
         $path = __DIR__ . '/../core/error.log';
         if (!file_exists($path)) {
-            throw new E404Ecxeption('Журнал ошибок не найден');
+            throw new E404Exception('Журнал ошибок не найден');
         }
 
         $log = file_get_contents($path);
