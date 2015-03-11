@@ -29,6 +29,17 @@ class NewsController {
         $view->display('news/one.php');
     }
 
+    public function actionTwig()
+    {
+        //Тестирую Twig
+        global $twig;
+
+        $items = ['a' => 1, 'b' => 2, 'c' => 3];
+        echo $twig->render('news/twigtest.php', array('books' => $items));
+
+
+    }
+
 }
 
 ?>
