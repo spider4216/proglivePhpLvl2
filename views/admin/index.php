@@ -16,6 +16,10 @@
                 <li>
                     <a href="/admin/log">Журнал ошибок</a>
                 </li>
+
+                <li>
+                    <a href="/admin/speed">Тест скорости сайта</a>
+                </li>
             </ul>
         </div>
     </div>

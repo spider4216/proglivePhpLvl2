@@ -53,6 +53,29 @@ class AdminController
         $view->display('admin/log.php');
     }
 
+    public function actionSpeed()
+    {
+        $timer = new \PhpTimer();
+        $timer->start('cycle');
+
+        for ($i = 0; $i < 100000; $i++) {
+            $a *= $i;
+        }
+
+        $timer->stop('cycle');
+
+        for ($i = 0; $i < 10; $i++) {
+            $timer->start("subloop");
+            for ($j = 0; $j < 1000000; $j++) $a = $i * $j;
+            $timer->stop("subloop");
+        }
+        $result = $timer->getAll();
+
+        $view = new View();
+        $view->humanSpeed = $result['subloop']['average_human'];
+        $view->display('admin/speed.php');
+    }
+
 }
 
 ?>
