@@ -1,4 +1,9 @@
 <?php
+
+namespace Application\Classes;
+
+use \PDO;
+
 class DB
 {
     private $dbh;

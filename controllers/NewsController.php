@@ -1,5 +1,8 @@
 <?php
 
+use Application\Models\News;
+use Application\Classes\View;
+
 class NewsController {
     public function actionIndex()
     {

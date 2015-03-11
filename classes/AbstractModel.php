@@ -1,5 +1,10 @@
 <?php
 
+namespace Application\Classes;
+
+use Application\Classes\IModel;
+use Application\Classes\DB;
+
 abstract class AbstractModel implements IModel {
     protected static $table;
     protected $data = [];
