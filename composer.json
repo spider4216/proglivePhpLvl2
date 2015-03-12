@@ -1,0 +1,8 @@
+{
+  "require" : {
+    "twig/twig" : "1.18.0",
+    "phpmailer/phpmailer" : "5.2.9",
+    "avvertix/phptimer" : "0.1.0"
+
+  }
+}
